@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- iPhone + Mobile Optimized -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <meta name="theme-color" content="#0f172a" />
+
+  <title>See You Till Next Time</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    body{
+      min-height:100svh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      overflow-x:hidden;
+
+      background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+
+      font-family:-apple-system,
+      BlinkMacSystemFont,
+      "SF Pro Display",
+      sans-serif;
+
+      color:white;
+
+      position:relative;
+
+      padding:20px;
+
+      transition:background 0.5s ease;
+    }
+
+    .container{
+      width:100%;
+      max-width:420px;
+
+      text-align:center;
+
+      position:relative;
+      z-index:2;
+
+      padding:32px 24px;
+
+      border-radius:28px;
+
+      background:rgba(255,255,255,0.08);
+
+      /* LIGHTER BLUR FOR IPHONE */
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+
+      border:1px solid rgba(255,255,255,0.1);
+
+      box-shadow:
+      0 10px 35px rgba(0,0,0,0.3);
+    }
+
+    h1{
+      font-size:clamp(2rem,8vw,4rem);
+
+      line-height:1.15;
+
+      font-weight:700;
+
+      letter-spacing:-1px;
+
+      animation:float 3s ease-in-out infinite;
+
+      text-shadow:0 0 20px rgba(255,255,255,0.2);
+
+      transition:0.3s ease;
+    }
+
+    h1:active{
+      transform:scale(0.98);
+      color:#7dd3fc;
+    }
+
+    p{
+      margin-top:18px;
+
+      font-size:clamp(1rem,3vw,1.15rem);
+
+      line-height:1.6;
+
+      color:rgba(255,255,255,0.8);
+    }
+
+    button{
+      margin-top:30px;
+
+      width:100%;
+
+      padding:16px;
+
+      border:none;
+
+      border-radius:18px;
+
+      background:#38bdf8;
+
+      color:white;
+
+      font-size:1rem;
+      font-weight:600;
+
+      cursor:pointer;
+
+      -webkit-appearance:none;
+
+      transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+    }
+
+    button:active{
+      transform:scale(0.97);
+      opacity:0.9;
+    }
+
+    /* Floating Background Circles */
+
+    .circle{
+      position:absolute;
+
+      border-radius:50%;
+
+      background:rgba(255,255,255,0.05);
+
+      filter:blur(2px);
+
+      animation:move 18s linear infinite;
+    }
+
+    .circle:nth-child(1){
+      width:180px;
+      height:180px;
+
+      top:-50px;
+      left:-50px;
+    }
+
+    .circle:nth-child(2){
+      width:240px;
+      height:240px;
+
+      bottom:-100px;
+      right:-60px;
+    }
+
+    .circle:nth-child(3){
+      width:120px;
+      height:120px;
+
+      top:65%;
+      left:55%;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-8px);
+      }
+    }
+
+    @keyframes move{
+      0%{
+        transform:translateY(0px) rotate(0deg);
+      }
+
+      50%{
+        transform:translateY(-20px) rotate(180deg);
+      }
+
+      100%{
+        transform:translateY(0px) rotate(360deg);
+      }
+    }
+
+    /* Small Phones */
+
+    @media (max-width:390px){
+
+      .container{
+        padding:26px 18px;
+      }
+
+      button{
+        padding:15px;
+      }
+
+      .circle:nth-child(1){
+        width:120px;
+        height:120px;
+      }
+
+      .circle:nth-child(2){
+        width:180px;
+        height:180px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- Main Card -->
+
+  <div class="container">
+
+    <h1 id="message">
+      See You Till Next Time 👋
+    </h1>
+
+    <p>
+      Thanks for visiting.  
+      Wishing you happiness, peace, and success ahead.
+    </p>
+
+    <button onclick="changeMood()">
+      Tap Here ✨
+    </button>
+
+  </div>
+
+  <script>
+
+    const messages = [
+      "See You Till Next Time 👋",
+      "Goodbye & Take Care ✨",
+      "Until We Meet Again 🌙",
+      "Come Back Soon 🚀",
+      "Stay Safe & Happy 💙"
+    ];
+
+    const backgrounds = [
+      "linear-gradient(135deg,#0f172a,#1e293b,#334155)",
+      "linear-gradient(135deg,#111827,#1d4ed8,#38bdf8)",
+      "linear-gradient(135deg,#3b0764,#7e22ce,#c084fc)",
+      "linear-gradient(135deg,#052e16,#15803d,#4ade80)",
+      "linear-gradient(135deg,#3f0d12,#a71d31,#ff4d6d)"
+    ];
+
+    let index = 0;
+
+    function changeMood(){
+
+      index = (index + 1) % messages.length;
+
+      document.getElementById("message").innerText =
+      messages[index];
+
+      document.body.style.background =
+      backgrounds[
+        Math.floor(Math.random() * backgrounds.length)
+      ];
+    }
+
+  </script>
+
+</body>
+</html>
